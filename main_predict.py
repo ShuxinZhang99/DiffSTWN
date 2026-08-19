@@ -54,11 +54,11 @@ test_loader = torch.utils.data.DataLoader(test_dataset, batch_size, shuffle=Fals
 
 
 # get multi_graph (instance)
-adjacency_origin = np.eye(od_pair_num)
-adjacency_destination = np.eye(od_pair_num)
-adjacency_origin = torch.tensor(GetLaplacian(adjacency_origin).get_normalized_adj(od_pair_num)).type(
+adjacency_origin = np.eye(station_num)
+adjacency_destination = np.eye(station_num)
+adjacency_origin = torch.tensor(GetLaplacian(adjacency_origin).get_normalized_adj(station_num)).type(
     torch.float32).to(device)
-adjacency_destination = torch.tensor(GetLaplacian(adjacency_destination).get_normalized_adj(od_pair_num)).type(
+adjacency_destination = torch.tensor(GetLaplacian(adjacency_destination).get_normalized_adj(station_num)).type(
     torch.float32).to(device)
 
 
