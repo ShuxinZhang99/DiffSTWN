@@ -12,14 +12,14 @@ print(device)
 epoch_num = 1000
 lr = 0.0005
 time_interval = 60      # time granularity
-tg_in_one_day = 18      # time of a day
+tg_in_one_day = 17      # time of a day
 batch_size = 8
-station_num = 61        # number of stations
-od_pair_num = 61 * 61   # number of od pairs
+station_num = 41        # number of stations
+od_pair_num = 41 * 41   # number of od pairs
 ext_num = 5             # number of external factors
-time_step = 756         # total time step
-T_h = 18                # history_step
-T_p = 18                # forecast_horizon
+time_step = 238        # total time step
+T_h = 17                # history_step
+T_p = 17                # forecast_horizon
 
 # ST-WaveNet
 d_model = 512
@@ -33,8 +33,8 @@ mask_ratio = 0
 feature_file = './DiffSTWN/Data/estimated_od/estimated_OD_demand_data.npy'
 real_file    = './DiffSTWN/Data/real_od/real_OD_demand_data.npy'
 external_file = './DiffSTWN/data/external_data/external_factors_data.npy'
-val_start_idx = 503 #1942  # 867 int(1190 * 0.6)
-test_start_idx = 629   #2213  # 1020  # int(1190 * 0.8)
+val_start_idx = 503 
+test_start_idx = 629 
 
 
 clean_data = CleanDataset(feature_file=feature_file, real_file=real_file, val_start_idx=val_start_idx,
@@ -179,8 +179,8 @@ global_strat_time = time.time()
 
 # model setup
 model = DiffWave(diffusion_steps, sample_steps, sample_strategy, adjacency_origin, adjacency_destination, d_model,
-                 beta_schedule, con_time_length=T_h + T_p, con_pre_len=T_h+T_p, num_nodes=od_pair_num,
-                 num_stations=station_num, num_ext=ext_num).to(device)
+                 beta_schedule, fore_horizon=T_p, con_time_length=T_h + T_p, con_pre_len=T_h+T_p, num_nodes=od_pair_num,
+                 num_stations=station_num, num_ext=ext_num, device=device).to(device)
 
 mse = torch.nn.MSELoss().to(device)
 
